@@ -1,4 +1,16 @@
+# Renewable Energy Website
+
+A Next.js website for renewable energy solutions and services.
+
+## About
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+The website features:
+- Homepage with testimonials, company logos, and recent articles
+- Responsive design with modern UI components
+- Integration with shadcn/ui components
+- Optimized images and performance
 
 ## Getting Started
 

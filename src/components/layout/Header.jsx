@@ -1,11 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 100); // Thay đổi sau khi scroll 100px
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const services = [
     { href: '/carbon-offsetting', title: 'Carbon Offsetting' },
@@ -21,11 +35,29 @@ export default function Header() {
     { href: '/esos-lead-assessor', title: 'ESOS Surveys' },
     { href: '/energy-saving-solutions', title: 'More Green Products...' },
   ];  return (
-    <header id="header" className="shadow-md sticky top-0 z-50" style={{borderTop: '1px solid #d5d1e8', borderBottom: '1px solid #d5d1e8'}}>
-      <nav className="desktop-menu" style={{backgroundColor: '#f4f3f9', height: '90px'}}>
-        <div className="container mx-auto px-4">
+    <header 
+      id="header" 
+      className={`shadow-md sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/90 backdrop-blur-md border-white/20' 
+          : 'bg-[#f4f3f9] border-[#d5d1e8]'
+      }`} 
+      style={{
+        borderTop: '1px solid', 
+        borderBottom: '1px solid',
+        borderColor: isScrolled ? 'rgba(213, 209, 232, 0.3)' : '#d5d1e8'
+      }}
+    >
+      <nav 
+        className={`desktop-menu transition-all duration-300 ${
+          isScrolled ? 'h-16' : 'h-[90px]'
+        }`}
+        style={{
+          backgroundColor: isScrolled ? 'transparent' : '#f4f3f9'
+        }}
+      >        <div className="container mx-auto px-4">
           <ul className="flex items-center justify-between h-full py-0"
-              style={{minHeight: '90px'}}>
+              style={{minHeight: isScrolled ? '64px' : '90px'}}>
             {/* Logo */}
             <li className="flex items-center">
               <Link href="/" className="flex items-center">
@@ -34,29 +66,40 @@ export default function Header() {
                   alt="Renewable Hub Logo"
                   width={200}
                   height={60}
-                  className="w-auto h-12"
+                  className={`w-auto transition-all duration-300 ${
+                    isScrolled ? 'h-8' : 'h-12'
+                  }`}
                   priority
                 />
-              </Link>
-              <button
+              </Link>              <button
                 className="ml-4 lg:hidden text-gray-700 hover:text-blue-600 transition-colors"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
                 <i className="fas fa-bars text-2xl"></i>
               </button>
-            </li>            {/* Desktop Navigation */}
+            </li>
+
+            {/* Desktop Navigation */}
             <li className="hidden lg:flex items-center space-x-8">
               <Link 
                 href="/about-us-how-renewable-hub-operates" 
-                className="text-gray-700 hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 h-16 flex items-center"
+                className={`hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 flex items-center ${
+                  isScrolled 
+                    ? 'text-gray-800 h-12' 
+                    : 'text-gray-700 h-16'
+                }`}
               >
                 About us
               </Link>
 
               {/* Services Dropdown */}
               <div className="relative group">
-                <button className="text-gray-700 hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 h-16 flex items-center">
+                <button className={`hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 flex items-center ${
+                  isScrolled 
+                    ? 'text-gray-800 h-12' 
+                    : 'text-gray-700 h-16'
+                }`}>
                   Our Services
                   <i className="fas fa-chevron-down ml-2 text-sm"></i>
                 </button>
@@ -89,11 +132,13 @@ export default function Header() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <Link 
+              </div>              <Link 
                 href="/charities-that-we-work-with-green-energy-environmental-good-causes" 
-                className="text-gray-700 hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 h-16 flex items-center"
+                className={`hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 flex items-center ${
+                  isScrolled 
+                    ? 'text-gray-800 h-12' 
+                    : 'text-gray-700 h-16'
+                }`}
               >
                 Good Causes
               </Link>
@@ -114,10 +159,14 @@ export default function Header() {
                 <span className="hidden sm:inline font-medium">Contact Form</span>
               </Link>
             </li>
-          </ul>
-
-          {/* Mobile Menu */}
-          <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} border-t border-gray-200 py-4`} style={{backgroundColor: '#f4f3f9'}}>
+          </ul>          {/* Mobile Menu */}
+          <div 
+            className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} border-t border-gray-200 py-4 transition-all duration-300`} 
+            style={{
+              backgroundColor: isScrolled ? 'rgba(244, 243, 249, 0.95)' : '#f4f3f9',
+              backdropFilter: isScrolled ? 'blur(8px)' : 'none'
+            }}
+          >
             <div className="space-y-4">
               <Link 
                 href="/about-us-how-renewable-hub-operates" 
