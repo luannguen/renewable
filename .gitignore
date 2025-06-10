@@ -42,3 +42,18 @@ Thumbs.db
 
 # Static template directory (appears to be a backup/template)
 renew_template/
+
+
+build
+dist / media
+node_modules
+.DS_Store
+.next
+.vercel
+
+# Payload default media upload directory
+public/media/
+
+public/robots.txt
+public/sitemap*.xml
+debug
