@@ -78,12 +78,10 @@ export default function Header() {
               >
                 <i className="fas fa-bars text-2xl"></i>
               </button>
-            </li>
-
-            {/* Desktop Navigation */}
+            </li>            {/* Desktop Navigation */}
             <li className="hidden lg:flex items-center space-x-8">
               <Link 
-                href="/about-us-how-renewable-hub-operates" 
+                href="/about-us" 
                 className={`hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 flex items-center ${
                   isScrolled 
                     ? 'text-gray-800 h-12' 
@@ -166,10 +164,9 @@ export default function Header() {
               backgroundColor: isScrolled ? 'rgba(244, 243, 249, 0.95)' : '#f4f3f9',
               backdropFilter: isScrolled ? 'blur(8px)' : 'none'
             }}
-          >
-            <div className="space-y-4">
+          >            <div className="space-y-4">
               <Link 
-                href="/about-us-how-renewable-hub-operates" 
+                href="/about-us" 
                 className="block text-gray-700 hover:text-blue-600 transition-colors font-medium py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
