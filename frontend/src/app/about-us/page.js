@@ -3,10 +3,10 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ContactFormAdvanced from '@/components/sections/ContactFormAdvanced';
 import CompanyLogos from '@/components/sections/CompanyLogos';
-import HeroBanner from '@/components/about/HeroBanner';
 import AboutUsIntro from '@/components/about/AboutUsIntro';
 import ThreeSteps from '@/components/about/ThreeSteps';
 import OurValues from '@/components/about/OurValues';
+import FounderSection from '@/components/about/FounderSection';
 
 export const metadata = {
   title: 'About Renewable Hub | Renewable Hub',
@@ -24,15 +24,13 @@ export const metadata = {
 export default function AboutUsPage() {
   return (
     <>
-      <Header />
-      
-      <main className="content">
-        {/* Hero Banner Section */}
-        <HeroBanner />
+      <Header />      <main className="content">
+        {/* Founder Section - Modern Hero */}
+        <FounderSection />
 
         {/* About Us Main Section */}
         <AboutUsIntro />
-
+        
         {/* 3 Steps Section */}
         <ThreeSteps />
 

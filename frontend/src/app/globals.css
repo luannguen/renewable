@@ -1449,3 +1449,236 @@ textarea:focus {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   }
 }
+
+/* Three Steps Process Flow Section - Using original background images */
+.theme-3steps-process {
+  background-image: url('/images/responsive-images/banners/575-23-banner.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 80px 0 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Responsive background images */
+@media (min-width: 576px) {
+  .theme-3steps-process {
+    background-image: url('/images/responsive-images/banners/767-23-banner.jpg');
+  }
+}
+
+@media (min-width: 768px) {
+  .theme-3steps-process {
+    background-image: url('/images/responsive-images/banners/991-23-banner.jpg');
+  }
+}
+
+@media (min-width: 992px) {
+  .theme-3steps-process {
+    background-image: url('/images/responsive-images/banners/1199-23-banner.jpg');
+  }
+}
+
+@media (min-width: 1200px) {
+  .theme-3steps-process {
+    background-image: url('/images/responsive-images/banners/1900-23-banner.jpg');
+  }
+}
+
+/* Overlay để text dễ đọc hơn */
+.theme-3steps-process::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.theme-3steps-process > * {
+  position: relative;
+  z-index: 2;
+}
+
+.theme-3steps-process .process-title {
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 3rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.process-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.process-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.process-step {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 280px;  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.process-step:hover {
+  transform: translateY(-5px);
+}
+
+.step-1 {
+  background: linear-gradient(135deg, rgba(139, 195, 74, 0.95) 0%, rgba(104, 159, 56, 0.95) 100%);
+  color: white;
+  clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%);
+}
+
+.step-2 {
+  background: linear-gradient(135deg, rgba(102, 187, 106, 0.95) 0%, rgba(76, 175, 80, 0.95) 100%);
+  color: white;
+  clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 30px 100%, 0 50%);
+  margin: 0 -15px;
+}
+
+.step-3 {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(46, 125, 50, 0.95) 100%);
+  color: white;
+  clip-path: polygon(30px 0, 100% 0, 100% 100%, 30px 100%, 0 50%);
+}
+
+.step-number {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.process-step h3 {
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.process-step p {
+  font-family: 'Muli', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.process-arrow {
+  display: none; /* Hidden on desktop as we use clip-path */
+}
+
+.btn-process {
+  background: #2196F3;
+  color: white;
+  font-family: 'Muli', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 15px 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+  text-shadow: none;
+}
+
+.btn-process:hover {
+  background: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+}
+
+.grass-background {
+  display: none; /* Hide since we're using real background image */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .theme-3steps-process {
+    padding: 60px 0 100px 0;
+    background-attachment: scroll;
+  }
+  
+  .process-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .process-flow {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .process-step {
+    width: 100%;
+    max-width: 350px;
+    clip-path: none !important;
+    margin: 0 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #333 !important;
+  }
+  
+  .step-number {
+    color: #4CAF50;
+    opacity: 1;
+  }
+  
+  .process-step h3,
+  .process-step p {
+    color: #333;
+    text-shadow: none;
+  }
+  
+  .process-arrow {
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid rgba(255, 255, 255, 0.8);
+    margin: 0 auto;
+  }
+}
+
+/* Our Values Section - Using Tailwind-compatible utilities */
+@layer utilities {
+  .bg-white-40 {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .bg-white-60 {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+}
