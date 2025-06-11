@@ -1,0 +1,31 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#grad4)" rx="20"/>
+  
+  <!-- Trees -->
+  <circle cx="120" cy="120" r="25" fill="#ffffff" opacity="0.3"/>
+  <rect x="115" y="120" width="10" height="30" fill="#ffffff" opacity="0.4"/>
+  
+  <circle cx="200" cy="100" r="30" fill="#ffffff" opacity="0.4"/>
+  <rect x="195" y="100" width="10" height="35" fill="#ffffff" opacity="0.5"/>
+  
+  <circle cx="280" cy="130" r="20" fill="#ffffff" opacity="0.3"/>
+  <rect x="275" y="130" width="10" height="25" fill="#ffffff" opacity="0.4"/>
+  
+  <!-- Animals silhouettes -->
+  <ellipse cx="160" cy="180" rx="15" ry="8" fill="#ffffff" opacity="0.3"/>
+  <circle cx="155" cy="175" r="5" fill="#ffffff" opacity="0.3"/>
+  <ellipse cx="240" cy="190" rx="12" ry="6" fill="#ffffff" opacity="0.25"/>
+  
+  <text x="200" y="230" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#ffffff">
+    Shropshire Wildlife
+  </text>
+  <text x="200" y="255" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#ffffff">
+    Trust
+  </text>
+</svg>

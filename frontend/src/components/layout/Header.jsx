@@ -131,7 +131,7 @@ export default function Header() {
                   </div>
                 </div>
               </div>              <Link 
-                href="/charities-that-we-work-with-green-energy-environmental-good-causes" 
+                href="/good-causes" 
                 className={`hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 flex items-center ${
                   isScrolled 
                     ? 'text-gray-800 h-12' 
@@ -187,10 +187,8 @@ export default function Header() {
                     </Link>
                   ))}
                 </div>
-              </div>
-
-              <Link 
-                href="/charities-that-we-work-with-green-energy-environmental-good-causes" 
+              </div>              <Link 
+                href="/good-causes" 
                 className="block text-gray-700 hover:text-blue-600 transition-colors font-medium py-2 border-t border-gray-200 pt-4"
                 onClick={() => setIsMenuOpen(false)}
               >

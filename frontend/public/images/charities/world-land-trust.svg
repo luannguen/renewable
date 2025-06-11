@@ -1,0 +1,23 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#15803d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14532d;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#grad6)" rx="20"/>
+  
+  <!-- Globe/Earth -->
+  <circle cx="200" cy="120" r="50" fill="#ffffff" opacity="0.3"/>
+  <path d="M170,100 Q200,80 230,100 Q200,120 170,100" fill="#15803d" opacity="0.5"/>
+  <path d="M160,130 Q190,110 220,130 Q190,150 160,130" fill="#15803d" opacity="0.4"/>
+  <path d="M180,140 Q210,120 240,140 Q210,160 180,140" fill="#15803d" opacity="0.3"/>
+  
+  <!-- Protective hands -->
+  <path d="M140,140 Q150,130 160,140 L160,180 Q150,190 140,180 Z" fill="#ffffff" opacity="0.2"/>
+  <path d="M240,140 Q250,130 260,140 L260,180 Q250,190 240,180 Z" fill="#ffffff" opacity="0.2"/>
+  
+  <text x="200" y="230" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#ffffff">
+    World Land Trust
+  </text>
+</svg>

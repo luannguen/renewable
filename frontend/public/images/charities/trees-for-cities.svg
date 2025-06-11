@@ -1,0 +1,30 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#grad7)" rx="20"/>
+  
+  <!-- City skyline -->
+  <rect x="50" y="150" width="30" height="80" fill="#ffffff" opacity="0.2"/>
+  <rect x="90" y="130" width="25" height="100" fill="#ffffff" opacity="0.25"/>
+  <rect x="125" y="140" width="35" height="90" fill="#ffffff" opacity="0.2"/>
+  <rect x="170" y="120" width="30" height="110" fill="#ffffff" opacity="0.3"/>
+  <rect x="210" y="135" width="25" height="95" fill="#ffffff" opacity="0.25"/>
+  <rect x="245" y="145" width="40" height="85" fill="#ffffff" opacity="0.2"/>
+  <rect x="295" y="125" width="30" height="105" fill="#ffffff" opacity="0.25"/>
+  <rect x="335" y="155" width="25" height="75" fill="#ffffff" opacity="0.2"/>
+  
+  <!-- Trees on buildings -->
+  <circle cx="65" cy="145" r="8" fill="#ffffff" opacity="0.5"/>
+  <circle cx="137" cy="135" r="10" fill="#ffffff" opacity="0.5"/>
+  <circle cx="185" cy="115" r="9" fill="#ffffff" opacity="0.5"/>
+  <circle cx="265" cy="140" r="11" fill="#ffffff" opacity="0.5"/>
+  <circle cx="310" cy="120" r="8" fill="#ffffff" opacity="0.5"/>
+  
+  <text x="200" y="210" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#ffffff">
+    Trees For Cities
+  </text>
+</svg>
