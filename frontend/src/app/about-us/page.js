@@ -1,50 +1,12 @@
 import React from 'react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import ContactFormAdvanced from '@/components/sections/ContactFormAdvanced';
-import CompanyLogos from '@/components/sections/CompanyLogos';
-import AboutUsIntro from '@/components/about/AboutUsIntro';
-import ThreeSteps from '@/components/about/ThreeSteps';
-import OurValues from '@/components/about/OurValues';
-import FounderSection from '@/components/about/FounderSection';
+import AboutUsClient from './AboutUsClient.jsx';
 
 export const metadata = {
-  title: 'About Renewable Hub | Renewable Hub',
-  description: 'Our business was born from our passion for the environment, sustainable living and bring a positive difference to modern business.',
-  openGraph: {
-    title: 'About Renewable Hub | Renewable Hub',
-    description: 'Our business was born from our passion for the environment, sustainable living and bring a positive difference to modern business.',
-    url: '/about-us',
-    siteName: 'Renewable Hub',
-    locale: 'en_GB',
-    type: 'website',
-  },
+  title: 'About Us - Leading Renewable Energy Company | RenewWeb',
+  description: 'Learn about RenewWeb, a pioneering renewable energy company committed to sustainable solutions. Discover our mission, values, and dedication to creating a greener future.',
+  keywords: 'about RenewWeb, renewable energy company, sustainable solutions, green energy mission, environmental values',
 };
 
 export default function AboutUsPage() {
-  return (
-    <>
-      <Header />      <main className="content">
-        {/* Founder Section - Modern Hero */}
-        <FounderSection />
-
-        {/* About Us Main Section */}
-        <AboutUsIntro />
-        
-        {/* 3 Steps Section */}
-        <ThreeSteps />
-
-        {/* Our Values Section */}
-        <OurValues />
-
-        {/* Contact Form Section */}
-        <ContactFormAdvanced />
-
-        {/* Company Logos Section */}
-        <CompanyLogos />
-      </main>
-
-      <Footer />
-    </>
-  );
+  return <AboutUsClient />;
 }

@@ -2,12 +2,11 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import ServiceDetailBanner from '@/components/services/ServiceDetailBanner';
 import ServiceDetailContent from '@/components/services/ServiceDetailContent';
 import ContactFormAdvanced from '@/components/sections/ContactFormAdvanced';
 import ServiceTestimonials from '@/components/services/ServiceTestimonials';
+import { useBreadcrumbItems } from '@/hooks/useBreadcrumbItems';
 
 // Service data với slug
 const servicesData = [
@@ -381,8 +380,7 @@ export default function ServiceDetailPage() {
   const slug = params.slug;
   
   const service = servicesData.find(s => s.slug === slug);
-  
-  if (!service) {
+    if (!service) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -396,19 +394,19 @@ export default function ServiceDetailPage() {
         <Footer />
       </div>
     );
-  }
+  }  const breadcrumbItems = [
+    { label: 'Our Services', href: '/our-services' },
+    { label: service.fullName || service.name }
+  ];
 
+  // Use breadcrumb hook to update global breadcrumb
+  useBreadcrumbItems(breadcrumbItems);
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-        <main className="content">
-        <ServiceDetailBanner service={service} />
-        <ServiceDetailContent service={service} />
-        <ContactFormAdvanced />
-        <ServiceTestimonials />
-      </main>
-      
-      <Footer />
-    </div>
+    <main className="content">
+      <ServiceDetailBanner service={service} />
+      <ServiceDetailContent service={service} />
+      <ContactFormAdvanced />
+      <ServiceTestimonials />
+    </main>
   );
 }

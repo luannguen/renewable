@@ -18,23 +18,9 @@ export default function Header() {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    };  }, []);
 
-  const services = [
-    { href: '/carbon-offsetting', title: 'Carbon Offsetting' },
-    { href: '/combined-heat-and-power-chp', title: 'Combined Heat and Power' },
-    { href: '/electric-vehicle-charging-points', title: 'Electric Vehicle Charging Points' },
-    { href: '/led-lighting-solutions', title: 'LED Lighting' },
-    { href: '/heating-solutions', title: 'Heating Solutions' },
-    { href: '/heating-refrigeration-and-cooling', title: 'Heating & Cooling Efficiency Solutions' },
-    { href: '/solar-panel-solutions', title: 'Solar PV' },
-    { href: '/voltage-optimisation', title: 'Voltage Optimisation' },
-    { href: '/water-rates-reviews', title: 'Water Reviews' },
-    { href: '/government-energy-incentives-and-grants', title: 'Grants and Funding' },
-    { href: '/esos-lead-assessor', title: 'ESOS Surveys' },
-    { href: '/energy-saving-solutions', title: 'More Green Products...' },
-  ];  return (
+  return (
     <header 
       id="header" 
       className={`shadow-md sticky top-0 z-50 transition-all duration-300 ${
@@ -123,16 +109,6 @@ export default function Header() {
                         <i className="fas fa-th-large mr-2"></i>
                         View All Services
                       </Link>
-                      {services.map((service, index) => (
-                        <Link
-                          key={index}
-                          href={service.href}
-                          className="text-gray-600 hover:text-primary-custom transition-colors py-1 px-2 rounded hover:bg-gray-50"
-                        >
-                          <i className="fas fa-arrow-right text-primary-custom mr-2 text-sm"></i>
-                          {service.title}
-                        </Link>
-                      ))}
                     </div>
                   </div>
                 </div>
@@ -145,6 +121,17 @@ export default function Header() {
                 }`}
               >
                 Good Causes
+              </Link>
+
+              <Link 
+                href="/articles" 
+                className={`hover:bg-primary-custom hover:text-white transition-all duration-200 font-heading uppercase px-4 py-2 flex items-center ${
+                  isScrolled 
+                    ? 'text-gray-800 h-12' 
+                    : 'text-gray-700 h-16'
+                }`}
+              >
+                Articles
               </Link>
             </li>            {/* Contact Info */}
             <li className="flex items-center space-x-4">
@@ -177,8 +164,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 About us
-              </Link>
-                <div className="border-t border-gray-200 pt-4">
+              </Link>                <div className="border-t border-gray-200 pt-4">
                 <h3 className="text-gray-800 font-bold mb-2">Our Services</h3>
                 <div className="grid grid-cols-1 gap-2 pl-4">
                   <Link
@@ -188,16 +174,6 @@ export default function Header() {
                   >
                     View All Services
                   </Link>
-                  {services.map((service, index) => (
-                    <Link
-                      key={index}
-                      href={service.href}
-                      className="text-gray-600 hover:text-blue-600 transition-colors py-1"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {service.title}
-                    </Link>
-                  ))}
                 </div>
               </div><Link 
                 href="/good-causes" 

@@ -1,8 +1,5 @@
 import React from 'react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import GoodCausesBanner from '@/components/good-causes/GoodCausesBanner';
-import CharitySection from '@/components/good-causes/CharitySection';
+import GoodCausesClient from './GoodCausesClient.jsx';
 
 export const metadata = {
   title: 'Good Causes - Charities We Support | RenewWeb',
@@ -78,22 +75,5 @@ const charitiesData = [
 ];
 
 export default function GoodCausesPage() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <main className="content">
-        <GoodCausesBanner />
-        
-        {charitiesData.map((charity) => (
-          <CharitySection 
-            key={charity.id}
-            charity={charity}
-          />
-        ))}
-      </main>
-      
-      <Footer />
-    </div>
-  );
+  return <GoodCausesClient />;
 }

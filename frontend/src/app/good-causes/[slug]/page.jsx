@@ -2,10 +2,9 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import CharityDetailBanner from '@/components/good-causes/CharityDetailBanner';
 import CharityDetailContent from '@/components/good-causes/CharityDetailContent';
+import { useBreadcrumbItems } from '@/hooks/useBreadcrumbItems';
 
 // Charity data với slug
 const charitiesData = [
@@ -224,8 +223,7 @@ export default function CharityDetailPage() {
   const slug = params.slug;
   
   const charity = charitiesData.find(c => c.slug === slug);
-  
-  if (!charity) {
+    if (!charity) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -240,17 +238,17 @@ export default function CharityDetailPage() {
       </div>
     );
   }
+  const breadcrumbItems = [
+    { label: 'Good Causes', href: '/good-causes' },
+    { label: charity.name }
+  ];
 
+  // Use breadcrumb hook to update global breadcrumb
+  useBreadcrumbItems(breadcrumbItems);
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <main className="content">
-        <CharityDetailBanner charity={charity} />
-        <CharityDetailContent charity={charity} />
-      </main>
-      
-      <Footer />
-    </div>
+    <main className="content">
+      <CharityDetailBanner charity={charity} />
+      <CharityDetailContent charity={charity} />
+    </main>
   );
 }
