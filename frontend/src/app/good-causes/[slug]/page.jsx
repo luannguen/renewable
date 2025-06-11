@@ -4,8 +4,8 @@ import React from 'react';
 import { useParams } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import CharityDetailBanner from '@/components/sections/CharityDetailBanner';
-import CharityDetailContent from '@/components/sections/CharityDetailContent';
+import CharityDetailBanner from '@/components/good-causes/CharityDetailBanner';
+import CharityDetailContent from '@/components/good-causes/CharityDetailContent';
 
 // Charity data với slug
 const charitiesData = [

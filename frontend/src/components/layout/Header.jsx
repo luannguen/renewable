@@ -115,8 +115,14 @@ export default function Header() {
                         <h3 className="font-bold text-gray-800 font-heading">Green Energy Solutions</h3>
                         <p className="text-sm text-gray-600">Sustainable solutions for your business</p>
                       </div>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2">
+                    </div>                    <div className="grid grid-cols-1 gap-2">
+                      <Link
+                        href="/our-services"
+                        className="bg-primary-custom text-white py-2 px-4 rounded-lg font-semibold hover:bg-primary-dark-custom transition-colors mb-3 text-center"
+                      >
+                        <i className="fas fa-th-large mr-2"></i>
+                        View All Services
+                      </Link>
                       {services.map((service, index) => (
                         <Link
                           key={index}
@@ -172,10 +178,16 @@ export default function Header() {
               >
                 About us
               </Link>
-              
-              <div className="border-t border-gray-200 pt-4">
+                <div className="border-t border-gray-200 pt-4">
                 <h3 className="text-gray-800 font-bold mb-2">Our Services</h3>
                 <div className="grid grid-cols-1 gap-2 pl-4">
+                  <Link
+                    href="/our-services"
+                    className="bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors mb-2 text-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    View All Services
+                  </Link>
                   {services.map((service, index) => (
                     <Link
                       key={index}
@@ -187,7 +199,7 @@ export default function Header() {
                     </Link>
                   ))}
                 </div>
-              </div>              <Link 
+              </div><Link 
                 href="/good-causes" 
                 className="block text-gray-700 hover:text-blue-600 transition-colors font-medium py-2 border-t border-gray-200 pt-4"
                 onClick={() => setIsMenuOpen(false)}

@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import GoodCausesBanner from '@/components/sections/GoodCausesBanner';
-import CharitySection from '@/components/sections/CharitySection';
+import GoodCausesBanner from '@/components/good-causes/GoodCausesBanner';
+import CharitySection from '@/components/good-causes/CharitySection';
 
 export const metadata = {
   title: 'Good Causes - Charities We Support | RenewWeb',
