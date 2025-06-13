@@ -1,11 +1,15 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
-import useEmblaCarousel from 'embla-carousel-react';
+import { useFeaturedProducts } from '@/hooks/useProducts';
 import Autoplay from 'embla-carousel-autoplay';
+import useEmblaCarousel from 'embla-carousel-react';
+import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function ProductGrid() {
-  const products = [
+  const { featuredProducts, isLoading, error } = useFeaturedProducts(8);
+
+  // Fallback static data
+  const staticProducts = [
     {
       iconClass: 'carbon',
       title: 'Carbon Offsetting',
@@ -29,7 +33,7 @@ export default function ProductGrid() {
       title: 'EV Charging',
       description: 'An exciting growth market whether you are looking at local charging for your staff / customers or larger scale EV Charging parks - speak to us first!',
       link: '/electric-vehicle-charging-points-where-to-get-them-uk'
-    },    {
+    }, {
       iconClass: 'money',
       title: 'Payment Services',
       description: 'We have access to the best rates going - speak to us to start saving',
@@ -72,18 +76,29 @@ export default function ProductGrid() {
       link: '/water-rates-reviews-uk'
     }
   ];
+
+  // Use API data if available, otherwise fallback to static
+  const products = featuredProducts.length > 0 ? featuredProducts.map(product => ({
+    iconClass: 'solar', // Default icon class
+    title: product.title,
+    description: product.description || product.excerpt || 'Sản phẩm chất lượng cao',
+    link: `/products/${product.slug}`,
+    image: product.featuredImage?.url,
+    price: product.price
+  })) : staticProducts;
+
   // Embla Carousel setup - each product is a separate slide
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { 
+    {
       loop: true,
       align: 'start',
       slidesToScroll: 1,
       breakpoints: {
-        '(min-width: 768px)': { 
+        '(min-width: 768px)': {
           slidesToScroll: 1,
           containScroll: 'trimSnaps'
         },
-        '(min-width: 1024px)': { 
+        '(min-width: 1024px)': {
           slidesToScroll: 1,
           containScroll: 'trimSnaps'
         }
@@ -133,17 +148,17 @@ export default function ProductGrid() {
                   <div key={index} className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 px-3">
                     <div className="product-card bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-6 h-full flex flex-col">
                       <div className={`icon ${product.iconClass} mb-4`}>&nbsp;</div>
-                      
+
                       <h3 className="text-xl font-semibold mb-3 text-gray-800">
                         {product.title}
                       </h3>
-                      
+
                       <p className="text-gray-600 mb-4 flex-grow leading-relaxed">
                         {product.description}
                       </p>
-                      
+
                       <p className="mt-auto">
-                        <Link 
+                        <Link
                           href={product.link}
                           className="btn btn-info btn-sm"
                         >
@@ -157,14 +172,14 @@ export default function ProductGrid() {
             </div>
 
             {/* Navigation arrows */}
-            <button 
+            <button
               onClick={scrollPrev}
               className="embla__prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-100 transition-colors"
             >
               <i className="fas fa-chevron-left text-gray-600"></i>
             </button>
-            
-            <button 
+
+            <button
               onClick={scrollNext}
               className="embla__next absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-100 transition-colors"
             >
@@ -175,9 +190,8 @@ export default function ProductGrid() {
                 <button
                   key={index}
                   onClick={() => scrollTo(index)}
-                  className={`embla__dot ${
-                    selectedIndex === index ? 'is-selected' : ''
-                  }`}
+                  className={`embla__dot ${selectedIndex === index ? 'is-selected' : ''
+                    }`}
                 />
               ))}
             </div>

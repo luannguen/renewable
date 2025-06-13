@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 
-const servicesData = [
+// Static fallback data
+const staticServicesData = [
   {
     id: 1,
     icon: 'fas fa-seedling',
@@ -123,25 +123,23 @@ export default function ServicesGrid() {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Some of our <span className="text-green-600">Green</span> products...
           </h2>
           <div className="w-24 h-1 bg-green-500 mx-auto"></div>
-        </div>
-
-        {/* Services Grid */}
+        </div>        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {servicesData.map((service) => (
+          {staticServicesData.map((service) => (
             <div
               key={service.id}
               className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
             >
               {/* Service Content */}
               <div className="p-8 text-center">
-                
+
                 {/* Icon */}
                 <div className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${getColorClasses(service.color)}`}>
                   <i className={`${service.icon} text-3xl`}></i>
@@ -182,13 +180,13 @@ export default function ServicesGrid() {
             <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
               Contact our expert team today for a FREE comprehensive energy audit and discover how much you could save.
             </p>
-            
+
             <div className="flex flex-wrap justify-center gap-4">
               <button className="inline-flex items-center px-8 py-4 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300 shadow-lg hover:shadow-xl">
                 <i className="fas fa-calculator mr-3"></i>
                 Get Free Energy Audit
               </button>
-              
+
               <button className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl">
                 <i className="fas fa-phone mr-3"></i>
                 Call 01905 317 005

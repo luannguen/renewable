@@ -1,11 +1,11 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import ToastProvider from "@/components/providers/ToastProvider";
+import Header from "@/components/layout/Header";
 import { BreadcrumbProvider } from "@/components/providers/BreadcrumbProvider";
+import ToastProvider from "@/components/providers/ToastProvider";
 import BackToTop from "@/components/ui/BackToTop";
 import FloatingBreadcrumb from "@/components/ui/FloatingBreadcrumb";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,8 +36,7 @@ export default function RootLayout({ children }) {
               <Footer />
             </div>
           </ToastProvider>
-          <FloatingBreadcrumb />
-        </BreadcrumbProvider>
+          <FloatingBreadcrumb />        </BreadcrumbProvider>
         <BackToTop />
       </body>
     </html>

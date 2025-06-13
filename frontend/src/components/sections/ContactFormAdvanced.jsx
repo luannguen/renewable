@@ -1,9 +1,9 @@
 'use client';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useToast } from '@/components/providers/ToastProvider';
+import apiClient from '@/lib/api';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 // Validation schema
 const contactSchema = z.object({
@@ -15,7 +15,7 @@ const contactSchema = z.object({
 
 export default function ContactFormAdvanced() {
   const { toast } = useToast();
-  
+
   const {
     register,
     handleSubmit,
@@ -24,15 +24,28 @@ export default function ContactFormAdvanced() {
   } = useForm({
     resolver: zodResolver(contactSchema)
   });
-
   const onSubmit = async (data) => {
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log('Form data:', data);
-      toast.success('Message sent successfully! We will contact you soon.');
-      reset();
+      // Prepare data for API
+      const apiData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone || undefined,
+        subject: 'general', // Default subject
+        message: data.message
+      };
+
+      console.log('Submitting form data:', apiData);
+
+      // Send to backend API
+      const response = await apiClient.submitContactForm(apiData);
+
+      if (response.success) {
+        toast.success('Message sent successfully! We will contact you soon.');
+        reset();
+      } else {
+        throw new Error(response.message || 'Failed to send message');
+      }
     } catch (error) {
       console.error('Error sending message:', error);
       toast.error('Failed to send message. Please try again.');
@@ -44,7 +57,7 @@ export default function ContactFormAdvanced() {
         <div id="contact" className="row bulb flex flex-wrap -mx-4 items-center min-h-[300px]">
           {/* ACT NOW Button */}
           <div className="w-full sm:w-1/3 md:w-1/3 px-4">
-            <a 
+            <a
               className="pulse2 inline-block bg-green-500 hover:bg-green-600 text-white px-8 py-6 rounded-full font-bold text-xl leading-tight"
               href="#contact"
             >
@@ -57,7 +70,7 @@ export default function ContactFormAdvanced() {
             <div className="flex flex-wrap -mx-4">
               {/* Form Header */}
               <div className="w-full px-4 mb-6">
-                <h2 className="text-[#1b695e] text-4xl font-normal mb-0" style={{textShadow: '3px 3px 3px rgba(255,255,255,.9)'}}>
+                <h2 className="text-[#1b695e] text-4xl font-normal mb-0" style={{ textShadow: '3px 3px 3px rgba(255,255,255,.9)' }}>
                   Get started today...
                 </h2>                <p className="text-gray-700 text-lg">
                   You are one step away from saving your business money and going green
@@ -70,8 +83,8 @@ export default function ContactFormAdvanced() {
                 <div className="w-full md:w-5/12 px-4">
                   {/* Name Field */}
                   <div className="form-group mb-4">                    <label className="block text-gray-700 text-sm font-medium mb-2">
-                      Name
-                    </label>
+                    Name
+                  </label>
                     {errors.name && (
                       <span className="text-red-400 text-sm block mb-1">
                         {errors.name.message}
@@ -87,8 +100,8 @@ export default function ContactFormAdvanced() {
 
                   {/* Email Field */}
                   <div className="form-group mb-4">                    <label className="block text-gray-700 text-sm font-medium mb-2">
-                      Email
-                    </label>
+                    Email
+                  </label>
                     {errors.email && (
                       <span className="text-red-400 text-sm block mb-1">
                         {errors.email.message}
@@ -104,8 +117,8 @@ export default function ContactFormAdvanced() {
 
                   {/* Phone Field */}
                   <div className="form-group mb-4">                    <label className="block text-gray-700 text-sm font-medium mb-2">
-                      Phone number
-                    </label><input
+                    Phone number
+                  </label><input
                       {...register('phone')}
                       type="tel"
                       className="form-control w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
@@ -118,8 +131,8 @@ export default function ContactFormAdvanced() {
                 <div className="w-full md:w-7/12 px-4">
                   {/* Message Field */}
                   <div className="form-group mb-4">                    <label className="block text-gray-700 text-sm font-medium mb-2">
-                      How can we help?
-                    </label>
+                    How can we help?
+                  </label>
                     {errors.message && (
                       <span className="text-red-400 text-sm block mb-1">
                         {errors.message.message}
