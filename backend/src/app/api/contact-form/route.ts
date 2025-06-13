@@ -1,6 +1,6 @@
+import config from '@payload-config';
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayload } from 'payload';
-import config from '@payload-config';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -18,7 +18,7 @@ export async function OPTIONS() {
 }
 
 /**
- * Submit homepage contact form
+ * Submit contact form
  * POST /api/contact-form
  */
 export async function POST(req: NextRequest) {
@@ -26,10 +26,10 @@ export async function POST(req: NextRequest) {
     const payload = await getPayload({ config });
 
     const body = await req.json();
-    console.log('Homepage form submission:', body);
+    console.log('Contact form submission:', body);
 
     // Validate required fields
-    const { name, email, message, subject, phone } = body;
+    const { name, email, message, subject, phone, company } = body;
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -57,105 +57,28 @@ export async function POST(req: NextRequest) {
           headers: CORS_HEADERS,
         }
       );
-    }
-
-    // Try to find the homepage contact form first
-    let formToUse = null;
-    try {
-      const homepageForm = await payload.find({
-        collection: 'forms',
-        where: {
-          title: { equals: 'Homepage Contact Form' }
-        },
-        limit: 1,
-      });      if (homepageForm.docs.length > 0 && homepageForm.docs[0]) {
-        formToUse = homepageForm.docs[0].id;
-      }
-    } catch (error) {
-      console.warn('Could not find homepage form:', error);
-    }
-
-    // If no specific form found, use a fallback ID or create one
-    if (!formToUse) {
-      formToUse = 'homepage-contact-form'; // Fallback string ID
-    }
-
-    // Create form submission
-    const submissionData = [
-      { field: 'name', value: name },
-      { field: 'email', value: email },
-      { field: 'message', value: message },
-      { field: 'subject', value: subject || 'general' },
-    ];
-
-    // Add phone if provided
-    if (phone) {
-      submissionData.push({ field: 'phone', value: phone });
-    }
-
-    const formSubmission = await payload.create({
-      collection: 'form-submissions',
+    }    // Create contact submission
+    const contactSubmission = await payload.create({
+      collection: 'contact-submissions',
       data: {
-        form: formToUse,
-        submissionData,
+        name,
+        email,
+        phone: phone || '',
+        subject: subject || 'general',
+        message,
+        status: 'new',
       },
     });
 
-    // Also create a record in contact-submissions for admin convenience
-    try {
-      await payload.create({
-        collection: 'contact-submissions',
-        data: {
-          name,
-          email,
-          phone: phone || '',
-          subject: subject || 'general',
-          message,
-          status: 'new',
-        },
-      });
-    } catch (error) {
-      console.warn('Could not create contact submission record:', error);
-      // Don't fail the entire request if this fails
-    }
-
-    // Get confirmation message from the form template
-    let confirmationMessage = 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.';
-
-    if (typeof formToUse === 'string' && formToUse !== 'homepage-contact-form') {
-      try {
-        const formTemplate = await payload.findByID({
-          collection: 'forms',
-          id: formToUse,
-        });
-
-        if (formTemplate?.confirmationMessage) {
-          // Extract text from Lexical editor format
-          const lexicalContent = formTemplate.confirmationMessage;          if (lexicalContent?.root?.children) {
-            // Extract text from Lexical editor format - simplified
-            const textContent = JSON.stringify(lexicalContent).match(/"text":"([^"]+)"/g);
-            if (textContent) {
-              confirmationMessage = textContent
-                .map(match => match.replace(/"text":"/, '').replace(/"$/, ''))
-                .join(' ')
-                .trim() || confirmationMessage;
-            }
-          }
-        }
-      } catch (error) {
-        console.warn('Could not get confirmation message from form template:', error);
-      }
-    }
-
-    console.log('Form submission created successfully:', formSubmission.id);
+    console.log('Contact submission created successfully:', contactSubmission.id);
 
     return NextResponse.json(
       {
         success: true,
-        message: confirmationMessage,
+        message: 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.',
         data: {
-          id: formSubmission.id,
-          submittedAt: formSubmission.createdAt,
+          id: contactSubmission.id,
+          submittedAt: contactSubmission.createdAt,
         },
       },
       {
@@ -165,7 +88,7 @@ export async function POST(req: NextRequest) {
     );
 
   } catch (error) {
-    console.error('Error submitting form:', error);
+    console.error('Error submitting contact form:', error);
 
     return NextResponse.json(
       {

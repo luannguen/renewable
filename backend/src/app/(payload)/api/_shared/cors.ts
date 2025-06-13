@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSideURL } from './getURL'
+import { verifyCSRFToken } from '../../../../utilities/csrf'
+import logger from '../../../../utilities/logger'
 import {
   getUserFromRequest,
 } from '../../../../utilities/verifyJwt'
-import logger from '../../../../utilities/logger'
-import { verifyCSRFToken } from '../../../../utilities/csrf'
+import { getServerSideURL } from './getURL'
 
 /**
  * Tạo CORS headers dựa trên cấu hình chuẩn
@@ -38,7 +38,7 @@ export function createCORSHeaders(
 
   // Allow all specified HTTP methods
   headers.append('Access-Control-Allow-Methods', methods.join(', '))
-    // Define standard headers + any extra headers
+  // Define standard headers + any extra headers
   const standardHeaders = [
     'Content-Type',
     'Authorization',
@@ -96,6 +96,42 @@ export function handleOptionsRequest(
 
   return new NextResponse(null, {
     status: 204,
+    headers,
+  });
+}
+
+/**
+ * Tạo success response với CORS headers và format chuẩn
+ *
+ * @param data Dữ liệu để trả về
+ * @param message Message thành công (optional)
+ * @param status HTTP status code (mặc định 200)
+ * @param methods Các phương thức HTTP được hỗ trợ
+ * @returns NextResponse với CORS headers và success format
+ */
+export function createSuccessResponse(
+  data: any,
+  message?: string,
+  status = 200,
+  methods: string[] = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+) {
+  const headers = createCORSHeaders(methods);
+
+  const successResponse: {
+    success: true;
+    data: any;
+    message?: string;
+  } = {
+    success: true,
+    data,
+  };
+
+  if (message) {
+    successResponse.message = message;
+  }
+
+  return NextResponse.json(successResponse, {
+    status,
     headers,
   });
 }
@@ -163,7 +199,7 @@ export async function checkAuth(
     authLogger.debug('Authentication check: Bypassing in development mode');
     return true;
   }
-    // Get user from request
+  // Get user from request
   try {
     // Attempt to extract and verify the token (with strict=true to catch errors)
     const result = await getUserFromRequest(req, { strict: true, autoRefresh: true });
@@ -179,7 +215,7 @@ export async function checkAuth(
     if (requiredRoles.length > 0) {
       // Get user roles from payload, either as roles array or single role
       const userRoles = userPayload.roles ||
-                       (userPayload.role ? [userPayload.role] : []).filter(Boolean);
+        (userPayload.role ? [userPayload.role] : []).filter(Boolean);
 
       // Check if the user has any of the required roles
       const hasRequiredRole = requiredRoles.some(role =>
@@ -197,7 +233,7 @@ export async function checkAuth(
     const authHeader = req.headers.get('authorization');
     const usesBearer = authHeader && authHeader.startsWith('Bearer ');
     const cookieBased = !usesBearer && req.headers.get('cookie')?.includes('payload-token=');
-      if (cookieBased && req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS') {
+    if (cookieBased && req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'OPTIONS') {
       // For non-GET requests with cookie auth, verify CSRF token
       const csrfValid = verifyCSRFToken(req);
       if (!csrfValid) {
@@ -269,8 +305,8 @@ export function handleApiError(
 
     // Prisma/Database errors
     else if (error.name === 'PrismaClientKnownRequestError' ||
-             error.name === 'PrismaClientValidationError' ||
-             error.message.includes('Prisma')) {
+      error.name === 'PrismaClientValidationError' ||
+      error.message.includes('Prisma')) {
       errorResponse.code = 'DATABASE_ERROR';
       // Don't expose internal DB errors to client in production
       if (process.env.NODE_ENV === 'production') {
@@ -301,9 +337,9 @@ export function handleApiError(
 
     // JWT/Auth errors
     else if (error.name === 'JsonWebTokenError' ||
-             error.name === 'TokenExpiredError' ||
-             error.message.includes('jwt') ||
-             error.message.includes('token')) {
+      error.name === 'TokenExpiredError' ||
+      error.message.includes('jwt') ||
+      error.message.includes('token')) {
       errorResponse.code = 'AUTH_ERROR';
       status = status === 500 ? 401 : status;
     }

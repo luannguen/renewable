@@ -25,9 +25,35 @@ const nextConfig = {
   // Explicitly tell Next.js we're only using the App Router
   useFileSystemPublicRoutes: true,
   // Disable the legacy Pages directory
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx']
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  // CORS headers for API routes
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: process.env.FRONTEND_URL || 'http://localhost:3001',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization, x-api-key',
+          },
+          {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
+          },
+        ],
+      },
+    ];
+  },
 }
 
-export default withPayload(nextConfig, { 
+export default withPayload(nextConfig, {
   // Configuration for payload without unrecognized keys
 })

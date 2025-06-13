@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import config from '@payload-config';
+import { NextRequest, NextResponse } from 'next/server';
+import { getPayload } from 'payload';
 import {
-  handleOptionsRequest,
-  createCORSResponse,
-  handleApiError
+  handleApiError,
+  handleOptionsRequest
 } from '../_shared/cors';
+import { formatApiResponse } from '../products/utils/responses';
 
 // Type definition for header info
 interface _HeaderInfo {
@@ -33,8 +33,8 @@ interface _HeaderInfo {
     alt?: string;
   };
   navigation?: {
-    mainLinks: Array<{title: string, routeKey: string}>;
-    moreLinks: Array<{title: string, routeKey: string}>;
+    mainLinks: Array<{ title: string, routeKey: string }>;
+    moreLinks: Array<{ title: string, routeKey: string }>;
   };
 }
 
@@ -60,7 +60,7 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
       slug: 'header',
       depth: 1,
     })
-    
+
     // Extract only the information needed for the header
     const headerInfo = {
       companyName: companyInfo.companyName,
@@ -90,11 +90,11 @@ export async function GET(_req: NextRequest): Promise<NextResponse> {
         })) || [],
         moreLinks: [] // Có thể thêm logic xác định moreLinks nếu cần
       }
-    }    // Return success response using createCORSResponse (which handles both data and headers)
-    return createCORSResponse(headerInfo, 200)
+    }    // Return success response using formatApiResponse (which handles standard format)
+    return formatApiResponse(headerInfo, 'Lấy thông tin header thành công')
   } catch (error) {
     console.error('Error fetching header information:', error)
-    
+
     return handleApiError(error, 'Đã xảy ra lỗi khi lấy thông tin header. Vui lòng thử lại sau.', 500)
   }
 }

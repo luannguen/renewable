@@ -1,12 +1,13 @@
+import config from '@payload-config'
 import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
-import config from '@payload-config'
+import { createApiKeyErrorResponse, validateApiKey } from '../_shared/apiKey'
 import {
   createCORSResponse,
-  handleOptionsRequest,
-  handleApiError
+  handleApiError,
+  handleOptionsRequest
 } from '../_shared/cors'
-import { validateApiKey, createApiKeyErrorResponse } from '../_shared/apiKey'
+import { formatApiResponse } from '../products/utils/responses'
 
 // Pre-flight request handler for CORS
 export function OPTIONS(req: NextRequest) {
@@ -37,7 +38,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     // The requireAuth field is kept for admin control but not enforced in API
 
     // Return success response
-    return createCORSResponse(companyInfo, 200)
+    return formatApiResponse(companyInfo, 'Lấy thông tin công ty thành công')
   } catch (error) {
     console.error('Error fetching company information:', error)
     return handleApiError(error, 'Đã xảy ra lỗi khi lấy thông tin công ty. Vui lòng thử lại sau.')

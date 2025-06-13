@@ -13,14 +13,14 @@ export const ContactSubmissions: CollectionConfig = {
     description: 'Các yêu cầu liên hệ từ khách hàng',
     group: 'Liên hệ & Phản hồi',
     defaultColumns: ['name', 'email', 'subject', 'createdAt'],
-  },  access: {
-    read: ({ req: { user } }: { req: { user: PayloadUser | null }}) => {
+  }, access: {
+    read: ({ req: { user } }: { req: { user: PayloadUser | null } }) => {
       return Boolean(user);
     },
-    update: ({ req: { user } }: { req: { user: PayloadUser | null }}) => {
+    update: ({ req: { user } }: { req: { user: PayloadUser | null } }) => {
       return Boolean(user);
     },
-    delete: ({ req: { user } }: { req: { user: PayloadUser | null }}) => {
+    delete: ({ req: { user } }: { req: { user: PayloadUser | null } }) => {
       return Boolean(user);
     },
     create: () => true, // Cho phép tạo mới không cần đăng nhập (từ form liên hệ)
